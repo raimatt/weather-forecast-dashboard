@@ -15,8 +15,8 @@ A responsive weather forecast application built with React that allows users to 
   - Weather description
   - Weather condition icon
 - Responsive design that adapts to mobile and desktop layouts
-- Styled using Emotion (or TailwindCSS if applicable)
-- Data fetching handled with TanStack Query and/or React Router data loaders
+- Styled using TailwindCSS
+- Data fetching handled with TanStack Query
 
 ---
 
