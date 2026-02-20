@@ -7,17 +7,17 @@ export default function CityInput(props) {
 
     const mutation = useMutation({
         mutationFn: async (coordinates) => {
-            const res = await fetch(`http://api.openweathermap.org/data/2.5/forecast?lat=${coordinates.lat}&lon=${coordinates.lon}&appid=${API_KEY}`)
+            const res = await fetch(`http://api.openweathermap.org/data/2.5/forecast?lat=${coordinates.lat}&lon=${coordinates.lon}&appid=${API_KEY}&units=imperial`)
             return res.json()
         },
         onSuccess: (data) => {
-        props.getWeatherData(data)
+            props.getWeatherData(data)
         }
     })
 
     return (
         <div>
-            <form className="w-2xs m-2 shadow-lg" onSubmit={async (e) => {
+            <form className="flex flex-row gap-3 p-4 bg-white rounded-lg shadow-md" onSubmit={async (e) => {
                 e.preventDefault()
                 
                 const [ cityName, state, country ] = city.split(',')
@@ -26,10 +26,19 @@ export default function CityInput(props) {
 
                 mutation.mutate({ lat: data[0].lat, lon: data[0].lon })
             }}>
-                <div>
-                    <input className="border p-2 m-2" placeholder="City" value={city} onChange={e => setCity(e.target.value)} />
-                </div>
-                <button type="submit" className="bg-sky-500 p-2 m-2 cursor-pointer">Submit</button>
+                <input 
+                    className="border-2 border-gray-300 rounded-md px-4 py-2.5 text-sm focus:outline-none focus:border-blue-950 transition-colors" 
+                    placeholder="City, State, Country (e.g., Seattle,WA,US)" 
+                    value={city} 
+                    onChange={e => setCity(e.target.value)}
+                    required
+                />
+                <button 
+                    type="submit" 
+                    className="bg-blue-950 text-white px-4 py-2.5 rounded-md text-sm font-semibold hover:bg-blue-900 transition-colors cursor-pointer"
+                >
+                    Get Weather
+                </button>
             </form>
         </div>
     )
